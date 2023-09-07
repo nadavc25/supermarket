@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Menu</title>
+
+</head>
+<body>
+    <h1>Welcome, {{ customer['first_name'] }}!</h1>
+    <h2>Customer Menu</h2>
+    <ul>
+        <li><a href="{{ url_for('view_cart', customer_id=customer['id']) }}">View Cart</a></li>
+        <!-- Add more menu options here -->
+    </ul>
+
+    <h2>Available Products</h2>
+    <ul>
+        {% for idx, product in enumerated_products %}
+            <li>
+                {{ idx }}. {{ product['name'] }} - Price: ${{ product['price'] }} 
+                <form method="POST" action="{{ url_for('add_to_cart', customer_id=customer['id']) }}">
+                    <input type="hidden" name="product_id" value="{{ idx - 1 }}">  {# Subtract 1 to match the list index #}
+                    Quantity: <input type="number" name="quantity" min="1" required>
+                    <input type="submit" value="Add to Cart">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    </body>
+</html>

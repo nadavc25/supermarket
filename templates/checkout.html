@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+
+</head>
+<body>
+    <h1>Checkout</h1>
+    <p>Review your order and click the "Confirm Checkout" button to complete your purchase:</p>
+    
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+        </tr>
+        {% for item in cart_contents %}
+        <tr>
+            <td>{{ item['product']['name'] }}</td>
+            <td>{{ item['quantity'] }}</td>
+            <td>${{ item['product']['price'] }}</td>
+            <td>${{ item['product']['price'] * item['quantity'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p>Total Price: ${{ total_price }}</p>
+
+    <form method="POST" action="{{ url_for('checkout', customer_id=customer['id']) }}">
+        <input type="submit" value="Confirm Checkout">
+    </form>
+</body>
+</html>

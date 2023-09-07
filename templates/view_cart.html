@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Cart</title>
+
+</head>
+<body>
+    <h1>View Cart</h1>
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+        </tr>
+        {% for item in cart_contents %}
+        <tr>
+            <td>{{ item['product']['name'] }}</td>
+            <td>{{ item['quantity'] }}</td>
+            <td>${{ item['product']['price'] }}</td>
+            <td>${{ item['product']['price'] * item['quantity'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p>Total Price: ${{ total_price }}</p>
+    <a href="{{ url_for('checkout', customer_id=customer['id']) }}">Checkout</a>
+    <a href="{{ url_for('customer_menu', customer_id=customer['id']) }}">back</a>
+</body>
+</html>
